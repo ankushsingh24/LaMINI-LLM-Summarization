@@ -10,8 +10,15 @@ import base64
 # model and tokenizer loading
 checkpoint = "LaMini-Flan-T5-248M"
 tokenizer = T5Tokenizer.from_pretrained(checkpoint)
-base_model = T5ForConditionalGeneration.from_pretrained(
-    checkpoint, offload_folder='/data', device_map='auto', torch_dtype=torch.float32)
+
+# base_model = T5ForConditionalGeneration.from_pretrained(
+#     checkpoint, offload_folder='/data', device_map='auto', torch_dtype=torch.float32)
+
+base_model = T5ForConditionalGeneration.from_pretrained(checkpoint)
+
+# base_model.disk_offload(folder='/data', device_map='auto', torch_dtype=torch.float32)
+#base_model = T5ForConditionalGeneration.from_pretrained(
+#    checkpoint, offload_folder='/data', device_map='auto', torch_dtype=torch.float32)
 
 # file loader and preprocessing
 
@@ -63,7 +70,7 @@ st.set_page_config(layout="wide")
 
 
 def main():
-    st.title("Document Summarization App using Langauge Model")
+    st.title("Document Summarization App using Language Model")
 
     uploaded_file = st.file_uploader("Upload your PDF file", type=['pdf'])
 
